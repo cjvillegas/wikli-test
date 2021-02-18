@@ -1,61 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Test Project
+This application is built on top of Laravel 7.x and VueJS 2.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+### Getting Started
+***
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
-## About Laravel
+#### Prerequisites
+***
+Installation, server and testing requirements.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* PHP >= 7.1.3
+* [Git](https://git-scm.com/downloads)
+* [Composer](https://getcomposer.org/download/)
+* [XAMPP](https://www.apachefriends.org/index.html), [WAMP](http://www.wampserver.com/en/) or [LAMP](https://bitnami.com/stack/lamp/installer) or any webserver that supports PHP >= 7.1.3
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Application Setup
+***
+1. Using `git bash`, navigate to your web server&apos;s public directory
+	* XAMPP => `cd <installation folder>/htdocs`
+	* WAMP => `cd <installation folder>/www`
+	* LAMP => ` cd <installation folder>/opt/bitnami/apache2/htdocs/` (**not sure**)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. Clone repository and navigate to project folder `https://github.com/cjvillegas/wikli-test.git && cd wikli-test`
 
-## Learning Laravel
+3. Run `git checkout staging`. You might want to run `git pull origin staging`, so that you could pull recent updates from the staging branch.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4. Ask for a copy of the staging DB and import it to your MySQL. Or, you could instead create a DB manually and run the migration command `php artisan migrate`, these will automatically populate the table for you.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+5. Locate `.env.example` in project root directory, open and save it as `.env`. **Don&apos;t rename**. If it shows already exist warning, try to hit `space` then `backspace` and click save.
 
-## Laravel Sponsors
+6. Modify the `.env` to match your local environment DB config. Example configuration below.
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=wikli_wikli_test
+DB_USERNAME=root
+DB_PASSWORD=
+```
+7. Setup virtual host.
+	- Edit your webserver&apos;s vhosts file. (Modify path if necessary)
+	
+		XAMPP => `<xampp installation folder>apache/conf/extra/httpd-vhosts.conf`
+		
+		WAMP => `<wamp installation folder>bin/Apache#.#.#/conf/httpd`
+		```
+		<VirtualHost *:80>
+    		DocumentRoot "C:/xampp/htdocs/wikli-test/public"
+			DirectoryIndex index.php
+			ServerName wikli-test
+    		ServerAlias wikli-test
+    		<Directory "C:/xampp/htdocs/wikli-test/public">
+        		Options All
+        		AllowOverride All
+        		Order Allow,Deny
+        		Allow from all
+    		</Directory>
+		</VirtualHost>
+		```
+	- Modify `host` file.
+	
+		Open `C:/Windows/System32/drivers/etc/hosts` and add the following,
+		
+		```
+		127.0.0.1	 wikli-test
+		```
+		Note: **You need to have administrative access to edit this file.**
+		Then restart your webserver&apos;s apache.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+8. Run `composer install` to install needed dependencies.
+9. Run `npm install` to install Node dependencies.
 
-### Premium Partners
+9. Finally, visit this URL in your browser `http://wikli-test/` to test if the installation is successful.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<div style="text-align:center; font-weight: 600;">
+	<span>If you encounter problems in setting things up, just ask questions. Cheers!</span>
+	<span>Enjoy Coding!!</span>
+</div>
